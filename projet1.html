@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apurva Kulkarni | Cyber Portfolio</title>
+  <!-- Orbitron font for cyber look -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      min-height: 100%;
+      font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #080b12;
+      color: #0ff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    .glow-text {
+      color: #00fff7;
+      text-shadow: 0 0 4px #0ff, 0 0 10px #00fdfd88, 0 0 24px #00bdbd44;
+    }
+    a {
+      color: #00caff;
+      text-decoration: none;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+    a:hover, .project-link:focus {
+      color: #fff;
+      text-shadow: 0 0 12px #00fff7cc;
+      outline: none;
+    }
+    #app {
+      position: relative;
+      z-index: 1;
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 2.2rem 1.2rem 7rem;
+      backdrop-filter: blur(8px);
+    }
+    header {
+      text-align: center;
+      padding-bottom: 2rem;
+      z-index: 2;
+    }
+    header h1 {
+      font-size: 3.1rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      margin: 0 0 0.4rem;
+      color: #0ff;
+      filter: drop-shadow(0 0 8px #00ffe6);
+    }
+    header p {
+      font-size: 1.13rem;
+      letter-spacing: 0.06em;
+      color: #65ffff;
+      margin: 0.2rem 0 0;
+      user-select: text;
+      word-break: break-all;
+    }
+    .cyber-id {
+      margin-top: 0.5rem;
+      font-size: 0.97rem;
+      color: #00fff9aa;
+      text-shadow: 0 0 5px #00fff9, 0 0 8px #11465588;
+      letter-spacing: 0.14em;
+    }
+    nav {
+      margin: 2.3rem 0 0.7rem;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      font-size: 1.1rem;
+      padding: 0.3em 0.5em;
+      border-radius: 5px;
+      position: relative;
+    }
+    nav a.active, nav a:focus {
+      background: #00fff942;
+      box-shadow: 0 0 5px #00fff788, 0 0 20px #00caff55;
+    }
+    nav a:after {
+      content: "";
+      display: block;
+      border-bottom: 2.5px solid #0ff;
+      width: 0%;
+      transition: width 0.2s;
+    }
+    nav a:hover:after, nav a.active:after {
+      width: 100%;
+    }
+    section {
+      background: rgba(0, 15, 23, 0.81);
+      border-radius: 13px;
+      box-shadow: 0 0 13px #00fefe67, 0 0 49px #00baba33, inset 0 0 35px #00fff733;
+      margin-bottom: 3rem;
+      padding: 2.1rem;
+      border: 1.5px solid #00ffff55;
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-top: 0; margin-bottom: 1.1rem;
+      text-shadow: 0 0 10px #0ff,0 0 5px #0ff;
+    }
+    ul { padding-left: 1.2rem; color:#0ff; line-height: 1.52; }
+    ul li { margin-bottom: 0.8rem;}
+    .highlight {
+      color: #0fb;
+      font-weight: 600;
+      text-shadow: 0 0 2px #0ff;
+    }
+    .btn-neon {
+      display: inline-block;
+      padding: 0.6rem 1.15rem;
+      border: 2px solid #0ff;
+      border-radius: 7px;
+      background: transparent;
+      color: #0ff;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      margin-top: 0.7rem;
+      box-shadow: 0 0 14px #00fff877;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      outline: none;
+    }
+    .btn-neon:hover, .btn-neon:focus {
+      background: #04fdff;
+      color: #001b27;
+      box-shadow: 0 0 19px #0ff, 0 0 30px #0ffcc;
+      outline: none;
+    }
+    #projects-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(333px,1fr));
+      gap: 2.2rem 1.3rem;
+    }
+
+    /* Project card with frontend/backend images */
+    .project-card {
+      position: relative;
+      background: rgba(0, 0, 0, 0.91);
+      border-radius: 14px;
+      padding: 1.35rem 1.2rem 1.8rem;
+      box-shadow: 0 0 11px #0fe, inset 0 0 29px #00fefe92, 0 8px 32px #0008;
+      border: 1.6px solid #00fff7cc;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s;
+      overflow: hidden;
+    }
+    .project-card:hover, .project-card:focus-within {
+      transform: scale(1.045) translateY(-5px);
+      box-shadow: 0 0 38px #00fff9, 0 0 45px #00a4a8ab, inset 0 0 30px #00fefea8;
+      z-index: 3;
+    }
+    .project-images {
+      display: flex;
+      gap: 0.85rem;
+      margin-bottom: 1.08rem;
+      height: 166px;
+      position: relative;
+    }
+    .project-image-frontend, .project-image-backend {
+      flex: 1;
+      border-radius: 10px;
+      box-shadow: 0 0 18px #0ffaad, inset 0 0 20px #00fff998;
+      border: 2px solid #0ff8;
+      object-fit: cover;
+      height: 100%;
+      min-width: 0;
+      filter: brightness(0.77);
+      transition: transform 0.54s, filter 0.39s;
+      position: relative;
+      z-index: 1;
+      background: #0c223a;
+    }
+    .project-image-frontend { transform: translateX(-56px); opacity: 0.83;}
+    .project-image-backend { transform: translateX(56px); opacity: 0.83;}
+    .project-card:hover .project-image-frontend,
+    .project-card:focus-within .project-image-frontend,
+    .project-card:hover .project-image-backend,
+    .project-card:focus-within .project-image-backend {
+      filter: brightness(1.07);
+      opacity: 1;
+      transform: translateX(0);
+      z-index: 5;
+      box-shadow: 0 0 23px #0ff, inset 0 0 37px #00fefebd;
+    }
+    .project-image-frontend:hover, .project-image-backend:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 44px #0ff, inset 0 0 40px #00ffffee;
+      z-index: 50;
+    }
+
+    .project-title {
+      font-weight: 800;
+      font-size: 1.23rem;
+      margin-bottom: 0.38rem;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+    .project-desc {
+      font-size: 1rem;
+      color: #6dfeff;
+      margin-bottom: 0.75rem;
+    }
+    .project-tech {
+      font-size: 0.93rem;
+      font-style: italic;
+      color: #44ffffea;
+      margin-bottom: 1.05rem;
+    }
+    .project-link {
+      align-self: flex-start;
+      color: #00ffffb0;
+      text-decoration: underline;
+      font-weight: 600;
+      margin-top: 0.3rem;
+      outline: none;
+      transition: color 0.22s;
+    }
+    /* Contact Form */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input[type="text"], input[type="email"], textarea {
+      background: transparent;
+      border: 1.7px solid #0ff8;
+      border-radius: 7px;
+      padding: 0.82rem 1rem;
+      font-size: 1.03rem;
+      color: #08fff7;
+      font-family: inherit;
+      resize: vertical;
+      outline: none;
+      box-shadow: inset 0 0 7px #0ff7;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+      border-color: #4cffff;
+      color: #fff;
+      background: #10192aee;
+    }
+    textarea { min-height: 100px; }
+    .form-success {
+      color: #0ff;
+      text-align: center;
+      font-size: 1.12rem;
+      margin-top: 0.7rem;
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 10px #00fff7cc;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.7rem 0 1rem;
+      color: #0ff77aa;
+      letter-spacing: 0.11em;
+      font-size: 0.95rem;
+      user-select: none;
+      position: relative;
+      z-index: 20;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 540px) {
+      header h1 { font-size: 2rem; }
+      section h2 { font-size: 1.35rem; }
+      #projects-list { grid-template-columns: 1fr; }
+      .project-images { flex-direction: column; height: auto; }
+      .project-image-frontend, .project-image-backend {
+        width: 100%;
+        height: 105px; min-width: unset;
+        transform: translateX(0) !important; opacity: 1 !important; margin-bottom: 0.56rem;
+      }
+    }
+    /* Three.js bg */
+    #bg-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: #05131e;
+      filter: brightness(0.6) blur(0.5px);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div id="app" role="main" aria-label="Apurva Kulkarni Cyber Portfolio">
+    <header>
+      <h1 class="glow-text">APURVA KULKARNI</h1>
+      <p>
+        Software Engineering Student & Cyber Tech Enthusiast<br>
+        apurvakulkarni@gmail.com | +91 98765 43210
+      </p>
+      <div class="cyber-id">Portfolio ID: <span class="highlight">#APU-CYBER2025</span></div>
+    </header>
+    <nav aria-label="Site sections">
+      <a href="#about" class="active">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="about" aria-label="About Me section">
+      <h2>About Me</h2>
+      <p>Hello! I'm <span class="highlight">Apurva Kulkarni</span>, an inquisitive and creative software engineering student with a flair for building futuristic, cyber-inspired web applications. I'm passionate about modern JavaScript, 3D visualizations, and developing seamless digital experiences. Driven by curiosity, I enjoy blending technical precision with visual storytelling for the web.<br><br>
+      <span class="highlight">Key Traits:</span> Fast learner, adaptive, team collaborator, always ready to take on new challenges.
+      </p>
+    </section>
+
+    <section id="skills" aria-label="Skills section">
+      <h2>Skills</h2>
+      <ul>
+        <li><span class="highlight">Languages:</span> JavaScript (ES6+), Python, Java</li>
+        <li><span class="highlight">Frameworks:</span> React, Node.js, Express, Django</li>
+        <li><span class="highlight">Databases:</span> MongoDB, MySQL</li>
+        <li><span class="highlight">Tools:</span> Git, Docker, VS Code, Figma</li>
+        <li><span class="highlight">Cloud:</span> AWS (EC2, S3), Vercel</li>
+        <li><span class="highlight">3D/Graphics:</span> Three.js, WebGL, Canva</li>
+        <li><span class="highlight">Soft Skills:</span> Communication, Presentation, Teamwork, Leadership</li>
+      </ul>
+      <button class="btn-neon" onclick="window.location='#projects';">See My Projects</button>
+    </section>
+
+    <section id="projects" aria-label="Projects section">
+      <h2>Featured Projects</h2>
+      <div id="projects-list" role="list" aria-live="polite" aria-relevant="additions"></div>
+    </section>
+
+    <section id="contact" aria-label="Contact me section">
+      <h2>Contact Me</h2>
+      <form id="contact-form" aria-describedby="contact-desc" autocomplete="off" novalidate>
+        <p id="contact-desc" style="color:#44ffffcc;">Send me a message if you’d like to collaborate, discuss tech, or just say hi!</p>
+        <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true" />
+        <input type="email" id="email" name="email" placeholder="Your Email" required aria-required="true" />
+        <textarea id="message" name="message" placeholder="Your Message" required aria-required="true"></textarea>
+        <button type="submit" class="btn-neon" aria-label="Send message">Send</button>
+        <div id="form-status" class="form-success" style="display:none;"></div>
+      </form>
+    </section>
+  </div>
+  <footer>
+    &copy; 2025 Apurva Kulkarni. All rights reserved.<br>
+    <span style="color:#009dff;font-size:1.01em;">Follow me: 
+      <a href="https://github.com/apporva213" target="_blank" rel="noopener">GitHub</a> | 
+      <a href="https://linkedin.com/in/apurva-kulkarni" target="_blank" rel="noopener">LinkedIn</a>
+    </span>
+  </footer>
+
+  <!-- Three.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
+  <script>
+    // ---- CYBER BACKGROUND EFFECT ----
+    (function(){
+      const canvas = document.getElementById('bg-canvas');
+      const renderer = new THREE.WebGLRenderer({canvas, antialias: true, alpha: true});
+      renderer.setPixelRatio(window.devicePixelRatio);
+      let width = window.innerWidth, height = window.innerHeight;
+      renderer.setSize(width, height);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, width/height, 0.1, 1000);
+      camera.position.z = 52;
+
+      const ambient = new THREE.AmbientLight(0x00fff7, 0.45);
+      scene.add(ambient);
+
+      // Cyber point lights
+      const pLight1 = new THREE.PointLight(0x0fffff, 0.23, 190);
+      pLight1.position.set(38,22,18);
+      scene.add(pLight1);
+      const pLight2 = new THREE.PointLight(0x0095ff, 0.18, 200);
+      pLight2.position.set(-47,-30,18);
+      scene.add(pLight2);
+
+      // Floating Neon Cubes
+      const cubes = [];
+      const cubeCount = 270;
+      const geometry = new THREE.BoxGeometry(1,1,1);
+      for(let n=0; n<cubeCount; n++){
+        const color = new THREE.Color();
+        color.setHSL(0.52+Math.random()*0.08, 1, 0.41+Math.random()*0.2);
+        const material = new THREE.MeshStandardMaterial({
+          color: color,
+          opacity: 0.84 + Math.random()*0.12,
+          transparent: true,
+          emissive: color,
+          metalness: 0.22 + Math.random()*0.12,
+          roughness: 0.6
+        });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.position.set(
+          (Math.random()-0.5)*120,
+          (Math.random()-0.5)*65,
+          (Math.random()-0.5)*105
+        );
+        cube.rotation.set(Math.random()*3, Math.random()*3, 0);
+        const scale = 0.5 + Math.random()*1.3;
+        cube.scale.set(scale, scale, scale);
+        scene.add(cube);
+        cubes.push({mesh: cube, speed: 0.003+Math.random()*0.01 });
+      }
+      // Animation loop
+      function animate(){
+        requestAnimationFrame(animate);
+        cubes.forEach((obj, i) => {
+          obj.mesh.rotation.y += obj.speed;
+          obj.mesh.rotation.x += obj.speed*0.7;
+          obj.mesh.position.y += Math.sin(Date.now()*obj.speed*1.6 + i)*0.012;
+        });
+        renderer.render(scene, camera);
+      }
+      animate();
+      function onResize(){
+        width = window.innerWidth; height = window.innerHeight;
+        camera.aspect = width/height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+      }
+      window.addEventListener('resize',onResize);
+    })();
+
+    // ---- DYNAMIC PROJECTS DATA ----
+    const projects = [
+      {
+        title: "School AI Exhibition Project",
+        description: "At age 12, I built an AI-driven web project for my school's science exhibition! The system integrates a Python backend (Flask + Generative AI) with a modern JS frontend, showing real-time interactive Q&A and speech features.",
+        technologies: ["Frontend: JavaScript", "CSS", "HTML", "Backend: Python", "Flask", "GenerativeAI", "WebBrowser", "os"],
+        frontendImage: "https://i.imgur.com/TUfH7so.png",
+        backendImage: "https://i.imgur.com/LvTNQAl.png",
+        link: "https://github.com/apporva213/school-ai-project.git"
+      },
+      {
+        title: "Discord AI Bots",
+        description: "Developed a suite of Discord bots that foster lively communication and provide AI-powered interactions. Features moderation, chat-based assist, and seamless integrations with MongoDB for persistent memory!",
+        technologies: ["Node.js", "Express", "MongoDB", "Discord.js", "JWT"],
+        frontendImage: "https://logodownload.org/wp-content/uploads/2017/11/discord-logo-1-1.png",
+        backendImage: "https://i.imgur.com/wafGoaN.png",
+        link: "https://github.com/apporva213/discord-project.git"
+      },
+      {
+        title: "This Portfolio Website",
+        description: "My current cyber-inspired, 3D-animated portfolio! All custom CSS, advanced JavaScript, and Three.js for a unique, immersive tech effect.",
+        technologies: ["HTML", "CSS", "JavaScript", "Three.js"],
+        frontendImage: "https://i.imgur.com/sSTdC58.png",
+        backendImage: "https://i.imgur.com/uyQpPkO.png",
+        link: "https://github.com/apporva213/portfolio"
+      },
+      {
+        title: "Upcoming",
+        description: "soon",
+        technologies: ["soon"],
+        frontendImage: "https://static.vecteezy.com/system/resources/previews/019/641/473/original/coming-soon-3d-label-promotion-banner-png.png",
+        backendImage: "https://static.vecteezy.com/system/resources/previews/019/641/473/original/coming-soon-3d-label-promotion-banner-png.png",
+        link: "https://github.com/apporva213/3d-visualizer"
+      }
+    ];
+
+    const projectsListEl = document.getElementById('projects-list');
+    projects.forEach(proj => {
+      const card = document.createElement('article');
+      card.className = 'project-card';
+      card.setAttribute('role', 'listitem');
+
+      // Images container
+      const imagesDiv = document.createElement('div');
+      imagesDiv.className = 'project-images';
+
+      const imgFrontend = document.createElement('img');
+      imgFrontend.className = 'project-image-frontend';
+      imgFrontend.src = proj.frontendImage;
+      imgFrontend.alt = proj.title + " Frontend screenshot";
+
+      const imgBackend = document.createElement('img');
+      imgBackend.className = 'project-image-backend';
+      imgBackend.src = proj.backendImage;
+      imgBackend.alt = proj.title + " Backend screenshot";
+
+      imagesDiv.appendChild(imgFrontend);
+      imagesDiv.appendChild(imgBackend);
+
+      // Text content
+      const title = document.createElement('h3');
+      title.className = 'project-title glow-text';
+      title.textContent = proj.title;
+
+      const desc = document.createElement('p');
+      desc.className = 'project-desc';
+      desc.textContent = proj.description;
+
+      const tech = document.createElement('p');
+      tech.className = 'project-tech';
+      tech.textContent = "Technologies: " + proj.technologies.join(", ");
+
+      const link = document.createElement('a');
+      link.className = 'project-link btn-neon';
+      link.href = proj.link;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = "View on GitHub";
+
+      card.appendChild(imagesDiv);
+      card.appendChild(title);
+      card.appendChild(desc);
+      card.appendChild(tech);
+      card.appendChild(link);
+
+      projectsListEl.appendChild(card);
+    });
+
+    // ---- CONTACT FORM ----
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      // Simple frontend validation
+      const name = form.name.value.trim(), email = form.email.value.trim(), msg = form.message.value.trim();
+      const status = document.getElementById('form-status');
+      if (!name || !email || !msg) {
+        status.style.display = "block";
+        status.style.color = "#ff4040";
+        status.innerHTML = "Please fill in all the fields!";
+        return;
+      }
+      status.style.display = "block";
+      status.style.color = "#0ff";
+      status.innerHTML = "Thank you, " + name + "! Your message was sent. 🚀";
+      form.reset();
+      setTimeout(()=>{status.style.display="none"},3000);
+    });
+
+    // ---- NAVIGATION ACTIVE ----
+    (function(){
+      const navLinks = document.querySelectorAll("nav a");
+      navLinks.forEach(link => {
+        link.addEventListener("click", function(e){
+          navLinks.forEach(a=>a.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+      window.addEventListener("scroll", ()=>{
+        let scrollPos = window.scrollY + 81;
+        navLinks.forEach(link=>{
+          const section = document.querySelector(link.getAttribute("href"));
+          if (section && section.offsetTop <= scrollPos && section.offsetTop+section.offsetHeight > scrollPos) {
+            navLinks.forEach(a=>a.classList.remove("active"));
+            link.classList.add("active");
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
